@@ -1,0 +1,130 @@
+.login-container {
+    max-width: 520px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: var(--secondary-navy);
+    color: var(--white);
+    padding: 2rem 2.5rem;
+    text-align: center;
+}
+
+.card-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.card-header p {
+    color: var(--light-blue);
+    font-size: 0.95rem;
+}
+
+.form-body {
+    padding: 2.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.35rem;
+}
+
+label .required {
+    color: var(--accent-coral);
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.99);
+}
+
+.btn-submit {
+    background-color: var(--ocean-blue);
+    color: var(--white);
+    flex: 2;
+}
+
+.btn-submit:hover {
+    background-color: #005F92;
+}
+
+.btn-reset {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    flex: 1;
+}
+
+.btn-reset:hover {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    border-color: var(--text-muted);
+}
+
+.register-prompt {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.error-message {
+    background-color: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
