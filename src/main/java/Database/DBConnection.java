@@ -2,7 +2,7 @@
 // Mod 9.2
 // 26-Jul-26
 
-package Beans;
+package Database;
 
 import java.sql.*;
 
