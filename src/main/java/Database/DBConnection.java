@@ -8,8 +8,7 @@ import java.sql.*;
 
 public class DBConnection implements java.io.Serializable {
 
-    Connection conn;
-    Statement stmt;
+    private Connection conn;
 
     /*
     **********
@@ -23,11 +22,14 @@ public class DBConnection implements java.io.Serializable {
             String user = "moffat_user";
             String password = "pass";
             conn = DriverManager.getConnection(url, user, password);
-            stmt = conn.createStatement();
         } catch (Exception e) {
             System.out.println("Error connecting to database in constructor.");
             e.printStackTrace();
         }
+    }
+
+    public Connection getConnection() {
+        return conn;
     }
 
     /*
@@ -37,9 +39,10 @@ public class DBConnection implements java.io.Serializable {
      */
     public void closeConnection() {
         try {
-            stmt.close();
-            conn.close();
-            System.out.println("Database connections closed");
+            if (conn != null) {
+                conn.close();
+                System.out.println("Database connections closed");
+            }
         } catch (SQLException e) {
             System.out.println("Error closing connection to database.");
             e.printStackTrace();

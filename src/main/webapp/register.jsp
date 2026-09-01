@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-body">
-            <form action="#" method="POST">
+            <form action="register" method="POST">
 
                 <!-- Section 1: Account Information -->
                 <h2 class="form-section-title">1. Account Details</h2>
@@ -132,6 +132,7 @@
                                 name="boatLength"
                                 min="1"
                                 max="200"
+                                step="0.1"
                                 placeholder="36"
                                 required/>
                         <span class="field-hint">Length overall (LOA) including platforms/bowsprits.</span>
