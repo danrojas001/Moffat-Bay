@@ -28,6 +28,11 @@ public class DBConnection implements java.io.Serializable {
         }
     }
 
+    /*
+    **********
+    RETURN CURRENT CONNECTION TO THE DB
+    **********
+     */
     public Connection getConnection() {
         return conn;
     }
