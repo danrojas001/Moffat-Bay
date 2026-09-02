@@ -20,7 +20,6 @@
             <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="about.jsp" class="nav-link">About Us</a></li>
             <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact Us</a></li>
-
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
@@ -40,7 +39,7 @@
 </header>
 
 <!-- Main Viewport Content -->
-<main class="app-viewport">
+<main class="viewport">
 
     <!-- Hero Block -->
     <div class="hero-block">
