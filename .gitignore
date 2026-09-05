@@ -32,3 +32,6 @@ target/
 
 # IntelliJ build output
 out/
+
+#macOS
+.DS_store
