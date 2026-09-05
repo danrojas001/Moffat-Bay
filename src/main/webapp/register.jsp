@@ -74,7 +74,7 @@
                                 id="password"
                                 name="password"
                                 minlength="8"
-                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                 placeholder="••••••••••••"
                                 required/>
                         <span class="field-hint">Must be at least 8 characters long and contain at least 1 uppercase and 1 lowercase letter.</span>
