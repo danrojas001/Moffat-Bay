@@ -31,4 +31,4 @@ replay_pid*
 target/
 
 # IntelliJ build output
-out/
+out/.DS_Store
