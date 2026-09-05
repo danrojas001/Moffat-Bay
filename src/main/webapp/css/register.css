@@ -98,6 +98,18 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
 }
 
+.field-error {
+    display: block;
+    align-self: flex-start;
+    color: #b42318;
+    background-color: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
 .field-hint {
     font-size: 0.8rem;
     color: var(--text-muted);

@@ -1,5 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%
+    String errorField = (String) request.getAttribute("errorField");
+    String errorMessage = (String) request.getAttribute("errorMessage");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +69,13 @@
                                 name="email"
                                 placeholder="john.doe@example.com"
                                 required/>
+                        <%
+                            if ("email".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                         <span class="field-hint">Your email address will serve as your unique account login username.</span>
                     </div>
 
@@ -77,6 +89,13 @@
                                 pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                 placeholder="••••••••••••"
                                 required/>
+                        <%
+                            if ("password".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                         <span class="field-hint">Must be at least 8 characters long and contain at least 1 uppercase and 1 lowercase letter.</span>
                     </div>
 
@@ -88,6 +107,13 @@
                                 name="firstName"
                                 placeholder="John"
                                 required/>
+                        <%
+                            if ("firstName".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                     </div>
 
                     <div class="form-group">
@@ -98,6 +124,13 @@
                                 name="lastName"
                                 placeholder="Doe"
                                 required/>
+                        <%
+                            if ("lastName".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                     </div>
 
                     <div class="form-group full-width">
@@ -106,8 +139,15 @@
                                 type="tel"
                                 id="telephone"
                                 name="telephone"
-                                placeholder="(777) 123-4567"
+                                placeholder="777-123-4567"
                                 required/>
+                        <%
+                            if ("telephone".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                     </div>
 
                 </div>
@@ -124,6 +164,13 @@
                                 name="boatName"
                                 placeholder="Barracuda  II"
                                 required/>
+                        <%
+                            if ("boatName".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                     </div>
 
                     <div class="form-group">
@@ -137,6 +184,13 @@
                                 step="0.1"
                                 placeholder="36"
                                 required/>
+                        <%
+                            if ("boatLength".equals(errorField)) {
+                        %>
+                        <span class="field-error"><%= errorMessage %></span>
+                        <%
+                            }
+                        %>
                         <span class="field-hint">Length overall (LOA) including platforms/bowsprits.</span>
                     </div>
 
