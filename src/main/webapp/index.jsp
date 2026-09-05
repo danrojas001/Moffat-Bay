@@ -1,9 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%
+    boolean loggedIn = session != null && session.getAttribute("customerId") != null;
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moffat Bay Marina</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moffat Bay Marina - Home</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/landing.css">
 </head>
@@ -32,8 +38,14 @@
         </ul>
 
         <div class="nav-actions">
+            <% if (loggedIn) { %>
+            <form action="${pageContext.request.contextPath}/logout" method="POST">
+                <button type="submit" class="btn-nav-solid">Log Out</button>
+            </form>
+            <% } else { %>
             <a href="register.jsp" class="btn-nav-outline">Register</a>
             <a href="login.jsp" class="btn-nav-solid">Log In</a>
+            <% } %>
         </div>
     </div>
 </header>
@@ -103,7 +115,15 @@
 
     <!-- Call to Action -->
     <div class="cta-row">
-        <a href="reserve_slip.jsp" class="btn-main-cta">Reserve Your Slip Online</a>
+        <% if (loggedIn) { %>
+        <a href="reserve_slip.jsp" class="btn-main-cta">
+            Reserve Your Slip Online
+        </a>
+        <% } else { %>
+        <a href="login.jsp" class="btn-main-cta">
+            Log In to Reserve Your Slip
+        </a>
+        <% } %>
     </div>
 
     <!-- Footer -->
