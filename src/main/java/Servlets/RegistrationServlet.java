@@ -25,15 +25,22 @@ public class RegistrationServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String telephone = request.getParameter("telephone");
+        // Strips all non-digit characters from telephone
+        if (telephone != null) {
+            telephone = telephone.replaceAll("\\D", "");
+        }
         String boatName = request.getParameter("boatName");
         String boatLength = request.getParameter("boatLength");
 
-        String validationError = validateUserInfo(email, password, firstName, lastName, telephone, boatName, boatLength);
+        ValidationError validationError = validateUserInfo(email, password, firstName, lastName, telephone, boatName, boatLength);
 
         if (validationError != null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, validationError);
+            request.setAttribute("errorField", validationError.field());
+            request.setAttribute("errorMessage", validationError.message());
+            request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
+
 
         // Hash password
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
@@ -81,48 +88,64 @@ public class RegistrationServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
+            if (e.getErrorCode() == 1062) { // 1062 is a MySQL error code meaning duplicate entry for a UNIQUE constraint
+                request.setAttribute("errorField", "email");
+                request.setAttribute("errorMessage", "Email address already in use");
+                request.getRequestDispatcher("register.jsp").forward(request, response);
+                return;
+            }
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Registration Failed");
         }
     }
 
-    private String validateUserInfo(String email, String password, String firstName, String lastName,
-                                    String telephone, String boatName, String boatLength) {
+    /*
+    record for storing validation error field and message used in method validateUserInfo.
+     */
+    private record ValidationError(String field, String message) {}
+
+    /*
+    Validation checks for all input fields
+     */
+    private ValidationError validateUserInfo(String email, String password, String firstName, String lastName,
+                                             String telephone, String boatName, String boatLength) {
         // Validate email
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         if (email == null || !email.matches(emailRegex)) {
-            return "Please enter a valid email address.";
+            return new ValidationError("email", "Please enter a valid email address");
         }
 
         // Validate password
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z]).{8,}$";
         if (password == null || !password.matches(passwordRegex)) {
-            return "Password must be at least 8 characters and contain 1 uppercase and 1 lowercase letter.";
+            return new ValidationError("password", "Password must be at least 8 characters and contain 1 uppercase " +
+                    "and 1 lowercase letter.");
         }
 
         // Validate first name
         if (firstName == null || firstName.isBlank()) {
-            return "First name is required.";
+            return new ValidationError("firstName", "First name is required");
         }
 
         // Validate last name
         if (lastName == null || lastName.isBlank()) {
-            return "Last name is required.";
+            return new ValidationError("lastName", "Last name is required");
         }
 
         // Validate phone number
-        if (telephone == null || telephone.isBlank()) {
-            return "telephone is required.";
+        if (telephone == null || !telephone.matches("\\d{10}")) {
+            return new ValidationError("telephone", "A valid 10-digit telephone number is required");
         }
 
         // Validate boat name
         if (boatName == null || boatName.isBlank()) {
-            return "Boat name is required.";
+            return new ValidationError("boatName", "Boat name is required");
         }
 
         // Validate boat length
         if (boatLength == null || boatLength.isBlank()) {
-            return "Boat length is required.";
+            return new ValidationError("boatLength", "Boat length is required");
         }
         return null;
     }
+
 }
