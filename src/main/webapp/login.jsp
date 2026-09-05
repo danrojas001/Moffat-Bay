@@ -1,26 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
+<%
+    boolean loggedIn = session != null && session.getAttribute("customerId") != null;
+    response.setHeader("Cache-Control", "no-store");
+    if (loggedIn) {
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        return;
+    }
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Moffat Bay Marina</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moffat Bay Marina - Login</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
 </head>
-
 <body>
-<!-- Navigation Header -->
 <header class="navbar">
     <div class="nav-container">
-        <a href="index.jsp" class="Title">
-            Moffat Bay Marina
-        </a>
+        <a href="index.jsp" class="Title">Moffat Bay Marina</a>
 
         <ul class="nav-links">
             <li class="nav-item"><a href="index.jsp" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="about.jsp" class="nav-link">About Us</a></li>
             <li class="nav-item"><a href="contact.jsp" class="nav-link">Contact Us</a></li>
-
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
@@ -41,60 +47,57 @@
 
 <main class="login-container">
     <div class="card">
-
         <div class="card-header">
             <h1>Customer Login</h1>
             <p>Log in to your Moffat Bay Marina account</p>
         </div>
+
         <div class="form-body">
-            <%-- Display login error if redirected back with an error --%>
-            <% if (request.getParameter("error") != null) { %>
-            <div class="error-message">
-                Invalid email address or password. Please try again.
+            <%
+                String loginError = (String) request.getAttribute("loginError");
+                if (loginError != null) {
+            %>
+            <div class="error-message" role="alert">
+                <%= loginError %>
             </div>
             <% } %>
+
             <form action="${pageContext.request.contextPath}/login" method="POST">
                 <div class="form-group">
                     <label for="email">
                         Username (Email Address) <span class="required">*</span>
                     </label>
-                    <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="john.doe@example.com"
-                            autocomplete="email"
-                            required>
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="john.doe@example.com"
+                           autocomplete="email"
+                           required>
                 </div>
+
                 <div class="form-group">
                     <label for="password">
                         Password <span class="required">*</span>
                     </label>
-                    <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            autocomplete="current-password"
-                            required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-submit">
-                        Log In
-                    </button>
+                    <input type="password"
+                           id="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           autocomplete="current-password"
+                           required>
                 </div>
 
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-submit">Log In</button>
+                </div>
             </form>
 
             <div class="register-prompt">
                 Don't have an account?
                 <a href="register.jsp">Register here</a>
             </div>
-
         </div>
     </div>
-
 </main>
-
 </body>
 </html>
