@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
+    boolean loggedIn = session != null && session.getAttribute("customerId") != null;
     String errorField = (String) request.getAttribute("errorField");
     String errorMessage = (String) request.getAttribute("errorMessage");
 %>
@@ -12,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moffat Bay Marina - Register</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
@@ -31,8 +31,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip.jsp">Slip Reservation</a></li>
-                    <li><a href="reservation_summary.jsp">Reservation Summary</a></li>
+                    <li><a href="reserve_slip">Slip Reservation</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
@@ -40,28 +39,34 @@
         </ul>
 
         <div class="nav-actions">
+            <% if (loggedIn) { %>
+            <form action="${pageContext.request.contextPath}/logout" method="POST">
+                <button type="submit" class="btn-nav-solid">Log Out</button>
+            </form>
+            <% } else { %>
             <a href="register.jsp" class="btn-nav-outline">Register</a>
             <a href="login.jsp" class="btn-nav-solid">Log In</a>
+            <% } %>
         </div>
     </div>
 </header>
 
 <!-- Main Registration Form Container -->
-<main class="register-container">
+<main class="large-container">
     <div class="card">
         <div class="card-header">
             <h1>Create Your Account</h1>
             <p>Already registered with us? <a href="login.jsp">Sign in here</a></p>
         </div>
 
-        <div class="form-body">
+        <div class="content">
             <form action="register" method="POST">
 
                 <!-- Section 1: Account Information -->
-                <h2 class="form-section-title">1. Account Details</h2>
-                <div class="form-grid">
+                <h2 class="section-title">1. Account Details</h2>
+                <div class="grid">
 
-                    <div class="form-group full-width">
+                    <div class="group full-width">
                         <label for="email">Email Address (Username) <span class="required">*</span></label>
                         <input
                                 type="email"
@@ -79,7 +84,7 @@
                         <span class="field-hint">Your email address will serve as your unique account login username.</span>
                     </div>
 
-                    <div class="form-group full-width">
+                    <div class="group full-width">
                         <label for="password">Password <span class="required">*</span></label>
                         <input
                                 type="password"
@@ -99,7 +104,7 @@
                         <span class="field-hint">Must be at least 8 characters long and contain at least 1 uppercase and 1 lowercase letter.</span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="group">
                         <label for="firstName">First Name <span class="required">*</span></label>
                         <input
                                 type="text"
@@ -116,7 +121,7 @@
                         %>
                     </div>
 
-                    <div class="form-group">
+                    <div class="group">
                         <label for="lastName">Last Name <span class="required">*</span></label>
                         <input
                                 type="text"
@@ -133,7 +138,7 @@
                         %>
                     </div>
 
-                    <div class="form-group full-width">
+                    <div class="group full-width">
                         <label for="telephone">Telephone Number <span class="required">*</span></label>
                         <input
                                 type="tel"
@@ -153,10 +158,10 @@
                 </div>
 
                 <!-- Section 2: Vessel Details -->
-                <h2 class="form-section-title">2. Vessel Information</h2>
-                <div class="form-grid">
+                <h2 class="section-title">2. Vessel Information</h2>
+                <div class="grid">
 
-                    <div class="form-group">
+                    <div class="group">
                         <label for="boatName">Boat Name <span class="required">*</span></label>
                         <input
                                 type="text"
@@ -173,7 +178,7 @@
                         %>
                     </div>
 
-                    <div class="form-group">
+                    <div class="group">
                         <label for="boatLength">Boat Length (ft) <span class="required">*</span></label>
                         <input
                                 type="number"
@@ -193,11 +198,10 @@
                         %>
                         <span class="field-hint">Length overall (LOA) including platforms/bowsprits.</span>
                     </div>
-
                 </div>
 
                 <!-- Form Buttons -->
-                <div class="form-actions">
+                <div class="actions">
                     <button type="submit" class="btn btn-submit">Register Account & Vessel</button>
                     <button type="reset" class="btn btn-reset">Clear Form</button>
                 </div>

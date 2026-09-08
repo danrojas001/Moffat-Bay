@@ -30,8 +30,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip.jsp">Slip Reservation</a></li>
-                    <li><a href="reservation_summary.jsp">Reservation Summary</a></li>
+                    <li><a href="reserve_slip">Slip Reservation</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
@@ -45,14 +44,14 @@
     </div>
 </header>
 
-<main class="login-container">
+<main class="small-container">
     <div class="card">
         <div class="card-header">
             <h1>Customer Login</h1>
             <p>Log in to your Moffat Bay Marina account</p>
         </div>
 
-        <div class="form-body">
+        <div class="content">
             <%
                 String loginError = (String) request.getAttribute("loginError");
                 if (loginError != null) {
@@ -63,7 +62,7 @@
             <% } %>
 
             <form action="${pageContext.request.contextPath}/login" method="POST">
-                <div class="form-group">
+                <div class="group">
                     <label for="email">
                         Username (Email Address) <span class="required">*</span>
                     </label>
@@ -75,7 +74,7 @@
                            required>
                 </div>
 
-                <div class="form-group">
+                <div class="group">
                     <label for="password">
                         Password <span class="required">*</span>
                     </label>
@@ -87,7 +86,7 @@
                            required>
                 </div>
 
-                <div class="form-actions">
+                <div class="actions">
                     <button type="submit" class="btn btn-submit">Log In</button>
                 </div>
             </form>

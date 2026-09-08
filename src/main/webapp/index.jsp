@@ -29,8 +29,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip.jsp">Slip Reservation</a></li>
-                    <li><a href="reservation_summary.jsp">Reservation Summary</a></li>
+                    <li><a href="reserve_slip">Slip Reservation</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
@@ -59,6 +58,10 @@
         <h1>Your Safe Haven on Moffat Bay</h1>
         <p>Secure premier slip accommodations with flexible date selection, 30 AMP electrical service, deep-water
             access, and gated dock security.</p>
+    </div>
+
+    <div class="image">
+        <img src="${pageContext.request.contextPath}/images/SalishSalmon.png" alt="My Logo" />
     </div>
 
     <!-- Features Bar -->
@@ -116,7 +119,7 @@
     <!-- Call to Action -->
     <div class="cta-row">
         <% if (loggedIn) { %>
-        <a href="reserve_slip.jsp" class="btn-main-cta">
+        <a href="reserve_slip" class="btn-main-cta">
             Reserve Your Slip Online
         </a>
         <% } else { %>

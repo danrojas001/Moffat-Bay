@@ -58,34 +58,39 @@ public class RegistrationServlet extends HttpServlet {
 
             conn.setAutoCommit(false);
 
-            int customerId;
+            try {
 
-            try (PreparedStatement ps = conn.prepareStatement(customerSql, Statement.RETURN_GENERATED_KEYS)) {
-                ps.setString(1, email);
-                ps.setString(2, passwordHash);
-                ps.setString(3, firstName);
-                ps.setString(4, lastName);
-                ps.setString(5, telephone);
+                int customerId;
 
-                ps.executeUpdate();
+                try (PreparedStatement ps = conn.prepareStatement(customerSql, Statement.RETURN_GENERATED_KEYS)) {
+                    ps.setString(1, email);
+                    ps.setString(2, passwordHash);
+                    ps.setString(3, firstName);
+                    ps.setString(4, lastName);
+                    ps.setString(5, telephone);
 
-                try (ResultSet rs = ps.getGeneratedKeys()) {
-                    if (!rs.next()) {
-                        throw new SQLException("Couldn't retrieve the generated key");
+                    ps.executeUpdate();
+
+                    try (ResultSet rs = ps.getGeneratedKeys()) {
+                        if (!rs.next()) {
+                            throw new SQLException("Couldn't retrieve the generated key");
+                        }
+                        customerId = rs.getInt(1);
                     }
-                    customerId = rs.getInt(1);
                 }
-            }
 
-            try (PreparedStatement ps = conn.prepareStatement(boatSql)) {
-                ps.setInt(1, customerId);
-                ps.setString(2, boatName);
-                ps.setString(3, boatLength);
+                try (PreparedStatement ps = conn.prepareStatement(boatSql)) {
+                    ps.setInt(1, customerId);
+                    ps.setString(2, boatName);
+                    ps.setString(3, boatLength);
 
-                ps.executeUpdate();
+                    ps.executeUpdate();
+                }
+                conn.commit();
+                response.sendRedirect("login.jsp");
+            } catch (SQLException e) {
+                conn.rollback();
             }
-            conn.commit();
-            response.sendRedirect("login.jsp");
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
             if (e.getErrorCode() == 1062) { // 1062 is a MySQL error code meaning duplicate entry for a UNIQUE constraint
