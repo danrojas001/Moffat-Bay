@@ -10,6 +10,7 @@
     --bg-light: #F8FAFC;
     --white: #FFFFFF;
     --border-color: #CBD5E1;
+    --border-focus: #0077B6;
     --radius: 8px;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -24,7 +25,7 @@
 html,
 body {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     overflow: hidden;
     font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-light);
@@ -42,7 +43,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* --- Navigation Header --- */
+/* --- Navigation --- */
 .navbar {
     background-color: var(--primary-navy);
     color: var(--white);
@@ -69,11 +70,6 @@ a:hover {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-}
-
-.brand-logo:hover {
-    text-decoration: none;
-    color: var(--light-blue);
 }
 
 .nav-links {
@@ -177,4 +173,181 @@ a:hover {
     padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     flex-shrink: 0;
+}
+
+
+/* --- Common Page elements --- */
+
+.large-container {
+    width: 100%;
+    max-width: 760px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+}
+
+.small-container {
+    width: 100%;
+    max-width: 520px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+}
+
+.card {
+    width: 100%;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: var(--secondary-navy);
+    color: var(--white);
+    padding: 2rem 2.5rem;
+    text-align: center;
+}
+
+.card-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.card-header p {
+    color: var(--light-blue);
+    font-size: 0.95rem;
+}
+
+.card-header p a {
+    color: var(--white);
+    text-decoration: underline;
+}
+
+.content {
+    padding: 2.5rem;
+}
+
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary-navy);
+    border-bottom: 2px solid var(--light-blue);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+.section-title:first-of-type {
+    margin-top: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.25rem;
+}
+
+.group.full-width {
+    grid-column: span 2;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.35rem;
+}
+
+label .required {
+    color: var(--accent-coral);
+}
+
+input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.15);
+}
+
+.field-error {
+    display: block;
+    align-self: flex-start;
+    color: #b42318;
+    background-color: #fef3f2;
+    border: 1px solid #fecdca;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.field-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+}
+
+.actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--radius);
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn:active {
+    transform: scale(0.99);
+}
+
+.btn-submit {
+    background-color: var(--ocean-blue);
+    color: var(--white);
+    flex: 2;
+}
+
+.btn-submit:hover {
+    background-color: #005F92;
+}
+
+.btn-reset {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    flex: 1;
+}
+
+.btn-reset:hover {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    border-color: var(--text-muted);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+input[type="date"] {
+    padding: 0.65rem 0.85rem;
+    font-size: 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
