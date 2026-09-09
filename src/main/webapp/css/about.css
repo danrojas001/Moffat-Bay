@@ -1,0 +1,99 @@
+.hero-block h1 {
+    font-size: 2.35rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 0.65rem;
+}
+
+.about-intro {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.sub-header h1 {
+    text-align: center;
+    max-width: 800px;
+    padding: 0.85rem 1.1rem;
+    margin: 0 auto;
+}
+
+.amenities-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    max-width: 950px;
+    margin: 0 auto 1.25rem auto;
+    width: 100%;
+}
+
+.price-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 950px;
+    margin: 0 auto 1.25rem auto;
+    width: 100%;
+}
+
+.alert-row {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 950px;
+    margin: 0 auto 1.25rem auto;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alert-row p {
+    margin: 0;
+    text-align: center;
+    max-width: 650px;
+    line-height: 1.5;
+}
+.alert-row p:first-child {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.contact-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    max-width: 950px;
+    margin: 0 auto 1.25rem auto;
+    width: 100%;
+}
+
+.contact-item {
+    text-align: center;
+}
+
+.about-box {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.1rem;
+    min-height: 120px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.pricing-card {
+    background: var(--white);
+    color: var(--text-dark);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.35rem;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 4px solid var(--ocean-blue);
+}

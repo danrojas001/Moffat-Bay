@@ -51,7 +51,6 @@
     </div>
 </header>
 
-<!-- Main Registration Form Container -->
 <main class="large-container">
     <div class="card">
         <div class="card-header">

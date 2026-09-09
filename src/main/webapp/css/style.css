@@ -21,7 +21,7 @@
     padding: 0;
 }
 
-/* --- Page & Viewport Setup --- */
+/* --- Landing Page --- */
 html,
 body {
     height: 100vh;
@@ -176,7 +176,7 @@ a:hover {
 }
 
 
-/* --- Common Page elements --- */
+/* --- Form and Card pages --- */
 
 .large-container {
     width: 100%;
