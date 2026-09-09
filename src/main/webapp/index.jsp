@@ -2,6 +2,11 @@
 
 <%
     boolean loggedIn = session != null && session.getAttribute("customerId") != null;
+    String successMessage = (String) session.getAttribute("successMessage");
+
+    if (successMessage != null) {
+        session.removeAttribute("successMessage");
+    }
 %>
 
 <!DOCTYPE html>
@@ -135,6 +140,27 @@
     </footer>
 
 </main>
+
+<% if (successMessage != null) { %>
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <div class="success-icon">✓</div>
+        <h2>Reservation Confirmed!</h2>
+        <p><%= successMessage %></p>
+        <button type="button"
+                class="btn btn-submit"
+                onclick="closeSuccessModal()">
+            Continue
+        </button>
+    </div>
+</div>
+<% } %>
+
+<script>
+    function closeSuccessModal() {
+        document.getElementById("successModal").style.display = "none";
+    }
+</script>
 
 </body>
 </html>

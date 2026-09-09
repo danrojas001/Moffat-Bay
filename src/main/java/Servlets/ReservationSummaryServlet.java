@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 
 @WebServlet("/reservation_summary")
@@ -42,26 +39,42 @@ public class ReservationSummaryServlet extends HttpServlet {
             return;
         }
 
-        String firstNameString = request.getParameter("firstName");
-        String lastNameString = request.getParameter("lastName");
         String boatIdString = request.getParameter("boatId");
         String slipIdString = request.getParameter("slipId");
         String checkInDateString = request.getParameter("checkInDate");
         String checkOutDateString = request.getParameter("checkOutDate");
         String shorePowerString = request.getParameter("shorePower");
-        String monthlyCostString = request.getParameter("monthlyCost");
-
 
         int boatId = Integer.parseInt(boatIdString);
         int slipId = Integer.parseInt(slipIdString);
         LocalDate checkInDate = LocalDate.parse(checkInDateString);
         LocalDate checkOutDate = LocalDate.parse(checkOutDateString);
         boolean shorePower = "true".equals(shorePowerString);
-        BigDecimal monthlyCost = new BigDecimal(monthlyCostString);
 
         DBConnection db = new DBConnection();
 
         try (Connection conn = db.getConnection()) {
+
+            String boatSql = "SELECT boat_length FROM boats WHERE boat_id = ? AND customer_id = ?";
+
+            BigDecimal boatLength;
+
+            try (PreparedStatement ps = conn.prepareStatement(boatSql)) {
+                ps.setInt(1, boatId);
+                ps.setInt(2, customerId);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (!rs.next()) {
+                        session.setAttribute("errorField", "boat");
+                        session.setAttribute("errorMessage", "Could not verify your boat. Please try again.");
+                        response.sendRedirect("reserve_slip");
+                        return;
+                    }
+                    boatLength = rs.getBigDecimal("boat_length");
+                }
+            }
+
+            BigDecimal monthlyCost = calculateMonthlyCost(boatLength, shorePower);
 
             String reservationsSql = "INSERT INTO reservations(customer_id, boat_id, slip_id, check_in_date, " +
                     "check_out_date, shore_power, monthly_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -76,9 +89,32 @@ public class ReservationSummaryServlet extends HttpServlet {
                 ps.setBigDecimal(7, monthlyCost);
 
                 ps.executeUpdate();
+
+                session.setAttribute(
+                        "successMessage",
+                        "Your reservation has been successfully confirmed!"
+                );
+
+                response.sendRedirect("index.jsp");
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /*
+    Calculates monthly cost
+     */
+    private BigDecimal calculateMonthlyCost(BigDecimal boatLength, boolean shorePower) {
+        BigDecimal cost = boatLength.multiply(BigDecimal.TEN);
+
+        // 5% increase to slip cost
+        cost = cost.multiply(new BigDecimal("1.05"));
+
+        if (shorePower) {
+            cost = cost.add(BigDecimal.TEN);
+        }
+        return cost;
     }
 }

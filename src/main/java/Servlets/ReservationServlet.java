@@ -30,6 +30,13 @@ public class ReservationServlet extends HttpServlet {
             return;
         }
 
+        String errorField = (String) session.getAttribute("errorField");
+        String errorMessage = (String) session.getAttribute("errorMessage");
+        session.removeAttribute("errorField");
+        session.removeAttribute("errorMessage");
+        request.setAttribute("errorField", errorField);
+        request.setAttribute("errorMessage", errorMessage);
+
         DBConnection db = new DBConnection();
 
         try (Connection conn = db.getConnection()) {

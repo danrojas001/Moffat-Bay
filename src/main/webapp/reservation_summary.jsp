@@ -69,7 +69,11 @@
             <p>Please review your reservation details before confirming.</p>
         </div>
 
-        <div class="content">
+        <form action="${pageContext.request.contextPath}/reservation_summary" method="POST" class="content">
+
+            <input type="hidden" name="boatId" value="<%= request.getAttribute("boatId") %>">
+            <input type="hidden" name="slipId" value="<%= request.getAttribute("slipId") %>">
+
             <!-- Section 1: Reservation Information -->
             <h2 class="section-title">1. Customer & Vessel Information</h2>
             <div class="grid">
@@ -120,6 +124,7 @@
                     <input
                             type="text"
                             id="checkInDate"
+                            name="checkInDate"
                             value="<%= checkInDate %>"
                             readonly/>
                 </div>
@@ -129,6 +134,7 @@
                     <input
                             type="text"
                             id="checkOutDate"
+                            name="checkOutDate"
                             value="<%= checkOutDate %>"
                             readonly/>
                     <span class="field-hint">
@@ -169,6 +175,10 @@
                                 ? "Shore power included"
                                 : "Shore power not selected" %>
                     </span>
+                    <input
+                            type="hidden"
+                            name="shorePower"
+                            value="<%= Boolean.TRUE.equals(shorePower) %>">
                 </div>
 
 
@@ -185,9 +195,9 @@
             <!-- Form Buttons -->
             <div class="actions">
                 <a href="reserve_slip" class="btn btn-edit">Edit Reservation</a>
-                <button type="button" class="btn btn-submit">Confirm Reservation</button>
+                <button type="submit" class="btn btn-submit">Confirm Reservation</button>
             </div>
-        </div>
+        </form>
     </div>
 </main>
 </body>
