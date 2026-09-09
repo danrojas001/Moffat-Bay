@@ -130,7 +130,7 @@
             <div class="contact-item">
                 <span>📞</span>
                 <h3>Phone</h3>
-                <p>(555) 867-5309)</p>
+                <p>(555) 867-5309</p>
             </div>
             <div class="contact-item">
                 <span>📻</span>
