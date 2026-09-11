@@ -183,10 +183,10 @@
                                 type="number"
                                 id="boatLength"
                                 name="boatLength"
-                                min="1"
-                                max="200"
+                                min="5"
+                                max="50"
                                 step="0.1"
-                                placeholder="36"
+                                placeholder="5 - 50"
                                 required/>
                         <%
                             if ("boatLength".equals(errorField)) {
@@ -195,7 +195,7 @@
                         <%
                             }
                         %>
-                        <span class="field-hint">Length overall (LOA) including platforms/bowsprits.</span>
+                        <span class="field-hint">Length overall (LOA) in feet including platforms/bowsprits.</span>
                     </div>
                 </div>
 
