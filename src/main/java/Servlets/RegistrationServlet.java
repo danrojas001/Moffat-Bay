@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,9 +31,11 @@ public class RegistrationServlet extends HttpServlet {
             telephone = telephone.replaceAll("\\D", "");
         }
         String boatName = request.getParameter("boatName");
-        String boatLength = request.getParameter("boatLength");
+        String boatLengthString = request.getParameter("boatLength");
 
-        ValidationError validationError = validateUserInfo(email, password, firstName, lastName, telephone, boatName, boatLength);
+        ValidationError validationError = validateUserInfo(email, password, firstName, lastName, telephone, boatName, boatLengthString);
+
+        BigDecimal boatLength = new BigDecimal(boatLengthString.trim());
 
         if (validationError != null) {
             request.setAttribute("errorField", validationError.field());
@@ -41,15 +44,8 @@ public class RegistrationServlet extends HttpServlet {
             return;
         }
 
-
         // Hash password
         String passwordHash = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
-
-        String customerSql = "INSERT INTO customers (email, password_hash, first_name, last_name, telephone) VALUES " +
-                "(?, ?, ?, ?, ?)";
-
-        String boatSql = "INSERT INTO boats (customer_id, boat_name, boat_length) VALUES (?, ?, ?)";
 
         DBConnection db = new DBConnection();
 
@@ -61,6 +57,9 @@ public class RegistrationServlet extends HttpServlet {
             try {
 
                 int customerId;
+
+                String customerSql = "INSERT INTO customers (email, password_hash, first_name, last_name, telephone) VALUES " +
+                        "(?, ?, ?, ?, ?)";
 
                 try (PreparedStatement ps = conn.prepareStatement(customerSql, Statement.RETURN_GENERATED_KEYS)) {
                     ps.setString(1, email);
@@ -79,10 +78,12 @@ public class RegistrationServlet extends HttpServlet {
                     }
                 }
 
+                String boatSql = "INSERT INTO boats (customer_id, boat_name, boat_length) VALUES (?, ?, ?)";
+
                 try (PreparedStatement ps = conn.prepareStatement(boatSql)) {
                     ps.setInt(1, customerId);
                     ps.setString(2, boatName);
-                    ps.setString(3, boatLength);
+                    ps.setBigDecimal(3, boatLength);
 
                     ps.executeUpdate();
                 }
@@ -149,6 +150,18 @@ public class RegistrationServlet extends HttpServlet {
         // Validate boat length
         if (boatLength == null || boatLength.isBlank()) {
             return new ValidationError("boatLength", "Boat length is required");
+        }
+
+        BigDecimal bdLength;
+
+        try {
+            bdLength = new BigDecimal(boatLength.trim());
+        } catch (NumberFormatException e) {
+            return new ValidationError("boatLength", "Boat length must be a valid number");
+        }
+
+        if (bdLength.compareTo(BigDecimal.valueOf(5)) < 0 || bdLength.compareTo(BigDecimal.valueOf(50)) > 0) {
+            return new ValidationError("boatLength", "Boat length must be between 5 and 50");
         }
         return null;
     }
