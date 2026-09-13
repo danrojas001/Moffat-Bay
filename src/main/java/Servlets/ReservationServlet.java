@@ -121,7 +121,7 @@ public class ReservationServlet extends HttpServlet {
                 }
             }
 
-            String slipTypeSql = "SELECT slip_type_id FROM slip_types WHERE slip_length >= ? ORDER BY slip_length ASC" +
+            String slipTypeSql = "SELECT slip_type_id FROM slip_types WHERE length >= ? ORDER BY length ASC" +
                     " LIMIT 1";
 
             int slipTypeId;
@@ -137,9 +137,9 @@ public class ReservationServlet extends HttpServlet {
                 }
             }
 
-            String slipSql = "Select s.slip_id, s.slip_number FROM slips s WHERE s.slip_type_id = ? AND NOT EXISTS " +
-                    "(SELECT 1 FROM reservations r WHERE r.slip_id = s.slip_id AND r.check_in_date < ? AND r" +
-                    ".check_out_date > ?) ORDER BY s.slip_number LIMIT 1";
+            String slipSql = "SELECT s.slip_id, s.slip_number FROM slips s WHERE s.slip_type_id = ? AND NOT EXISTS " +
+                "(SELECT 1 FROM reservations r WHERE r.slip_id = s.slip_id AND r.check_in_date < ? AND " +
+                "DATE_ADD(r.check_in_date, INTERVAL 1 MONTH) > ?) ORDER BY s.slip_number LIMIT 1";
 
             int slipId;
             String slipNumber;

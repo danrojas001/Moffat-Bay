@@ -77,16 +77,15 @@ public class ReservationSummaryServlet extends HttpServlet {
             BigDecimal monthlyCost = calculateMonthlyCost(boatLength, shorePower);
 
             String reservationsSql = "INSERT INTO reservations(customer_id, boat_id, slip_id, check_in_date, " +
-                    "check_out_date, shore_power, monthly_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    "shore_power, monthly_cost) VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement ps = conn.prepareStatement(reservationsSql)) {
                 ps.setInt(1, customerId);
                 ps.setInt(2, boatId);
                 ps.setInt(3, slipId);
                 ps.setDate(4, Date.valueOf(checkInDate));
-                ps.setDate(5, Date.valueOf(checkOutDate));
-                ps.setBoolean(6, shorePower);
-                ps.setBigDecimal(7, monthlyCost);
+                ps.setBoolean(5, shorePower);
+                ps.setBigDecimal(6, monthlyCost);
 
                 ps.executeUpdate();
 
@@ -96,7 +95,6 @@ public class ReservationSummaryServlet extends HttpServlet {
                 );
 
                 response.sendRedirect("index.jsp");
-
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
