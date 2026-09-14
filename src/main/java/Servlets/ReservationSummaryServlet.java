@@ -67,7 +67,7 @@ public class ReservationSummaryServlet extends HttpServlet {
                     if (!rs.next()) {
                         session.setAttribute("errorField", "boat");
                         session.setAttribute("errorMessage", "Could not verify your boat. Please try again.");
-                        response.sendRedirect("reserve_slip");
+                        response.sendRedirect("reserve");
                         return;
                     }
                     boatLength = rs.getBigDecimal("boat_length");

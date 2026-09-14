@@ -34,7 +34,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip">Slip Reservation</a></li>
+                    <li><a href="reserve">Slip Reservation</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
@@ -124,7 +124,7 @@
     <!-- Call to Action -->
     <div class="cta-row">
         <% if (loggedIn) { %>
-        <a href="reserve_slip" class="btn-main-cta">
+        <a href="reserve" class="btn-main-cta">
             Reserve Your Slip Online
         </a>
         <% } else { %>

@@ -41,7 +41,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip">Slip Reservation</a></li>
+                    <li><a href="reserve">Slip Reservation</a></li>
                     <li><a href="reservation_summary">Reservation Summary</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
@@ -194,7 +194,7 @@
 
             <!-- Form Buttons -->
             <div class="actions">
-                <a href="reserve_slip" class="btn btn-edit">Edit Reservation</a>
+                <a href="reserve" class="btn btn-edit">Edit Reservation</a>
                 <button type="submit" class="btn btn-submit">Confirm Reservation</button>
             </div>
         </form>

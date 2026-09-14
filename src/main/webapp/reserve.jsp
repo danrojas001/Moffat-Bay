@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moffat Bay Marina - Reserve Slip</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/reserve_slip.css">
+    <link rel="stylesheet" href="css/reserve.css">
 </head>
 
 <body>
@@ -33,7 +33,7 @@
             <li class="nav-item dropdown">
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
-                    <li><a href="reserve_slip">Slip Reservation</a></li>
+                    <li><a href="reserve">Slip Reservation</a></li>
                     <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="content">
-            <form action="reserve_slip" method="POST">
+            <form action="reserve" method="POST">
                 <!-- Section 1: Vessel Information -->
                 <h2 class="section-title">1. Vessel Information</h2>
                 <div class="grid">

@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.logging.Logger;
 
-@WebServlet("/reserve_slip")
+@WebServlet("/reserve")
 public class ReservationServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(ReservationServlet.class.getName());
@@ -49,7 +49,7 @@ public class ReservationServlet extends HttpServlet {
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) {
                         request.setAttribute("errorMessage", "No boat associated with this account.");
-                        request.getRequestDispatcher("reserve_slip.jsp").forward(request, response);
+                        request.getRequestDispatcher("reserve.jsp").forward(request, response);
                         return;
                     }
 
@@ -62,7 +62,7 @@ public class ReservationServlet extends HttpServlet {
                     request.setAttribute("boatLength", boatLength);
                 }
 
-                request.getRequestDispatcher("reserve_slip.jsp").forward(request, response);
+                request.getRequestDispatcher("reserve.jsp").forward(request, response);
             }
         } catch (SQLException e) {
             LOGGER.severe("Error when retrieving boat information" + e.getMessage());
@@ -86,7 +86,7 @@ public class ReservationServlet extends HttpServlet {
         if (validationError != null) {
             request.setAttribute("errorField", validationError.field());
             request.setAttribute("errorMessage", validationError.message());
-            request.getRequestDispatcher("reserve_slip.jsp").forward(request, response);
+            request.getRequestDispatcher("reserve.jsp").forward(request, response);
             return;
         }
 
@@ -156,7 +156,7 @@ public class ReservationServlet extends HttpServlet {
                                 "your chosen dates.");
                         request.setAttribute("boatName", boatName);
                         request.setAttribute("boatLength", boatLength);
-                        request.getRequestDispatcher("reserve_slip.jsp").forward(request, response);
+                        request.getRequestDispatcher("reserve.jsp").forward(request, response);
                         return;
                     }
                     slipId = rs.getInt("slip_id");
