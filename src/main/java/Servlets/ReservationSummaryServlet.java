@@ -79,7 +79,7 @@ public class ReservationSummaryServlet extends HttpServlet {
             String reservationsSql = "INSERT INTO reservations(customer_id, boat_id, slip_id, check_in_date, " +
                     "check_out_date, shore_power, monthly_cost) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-            try (PreparedStatement ps = conn.prepareStatement(reservationsSql)) {
+            try (PreparedStatement ps = conn.prepareStatement(reservationsSql, Statement.RETURN_GENERATED_KEYS)) {
                 ps.setInt(1, customerId);
                 ps.setInt(2, boatId);
                 ps.setInt(3, slipId);
@@ -88,8 +88,20 @@ public class ReservationSummaryServlet extends HttpServlet {
                 ps.setBoolean(6, shorePower);
                 ps.setBigDecimal(7, monthlyCost);
 
+                int reservationId;
+
                 ps.executeUpdate();
 
+                try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        reservationId = generatedKeys.getInt(1);
+                    } else {
+                        throw new SQLException("Creating reservation failed, no ID obtained.");
+                    }
+                }
+
+
+                session.setAttribute("reservationId", reservationId);
                 session.setAttribute(
                         "successMessage",
                         "Your reservation has been successfully confirmed!"

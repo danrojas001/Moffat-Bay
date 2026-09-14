@@ -3,9 +3,11 @@
 <%
     boolean loggedIn = session != null && session.getAttribute("customerId") != null;
     String successMessage = (String) session.getAttribute("successMessage");
+    Integer reservationId = (Integer) session.getAttribute("reservationId");
 
     if (successMessage != null) {
         session.removeAttribute("successMessage");
+        session.removeAttribute("reservationId");
     }
 %>
 
@@ -146,6 +148,12 @@
         <div class="success-icon">✓</div>
         <h2>Reservation Confirmed!</h2>
         <p><%= successMessage %></p>
+        <% if (reservationId != null) { %>
+        <p>
+            Reservation ID:
+            <strong><%= reservationId %></strong>
+        </p>
+        <% } %>
         <button type="button"
                 class="btn btn-submit"
                 onclick="closeSuccessModal()">
