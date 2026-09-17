@@ -33,7 +33,7 @@
                 <span class="nav-link">Reservations ▾</span>
                 <ul class="dropdown-menu">
                     <li><a href="reserve">Slip Reservation</a></li>
-                    <li><a href="reservation_lookup.jsp">Reservation Look Up</a></li>
+                    <li><a href="reservation_lookup">Reservation Look Up</a></li>
                     <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
                 </ul>
             </li>
@@ -60,7 +60,7 @@
         </div>
 
         <div class="content">
-            <form action="reservation_lookup.jsp" method="GET">
+            <form action="reservation_lookup" method="GET">
 
                 <!-- Lookup input -->
                 <h2 class="section-title">Criteria Select </h2>
