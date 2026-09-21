@@ -7,6 +7,9 @@
     String errorMessage = (String) request.getAttribute("errorMessage");
     String boatName = (String) request.getAttribute("boatName");
     BigDecimal boatLength = (BigDecimal) request.getAttribute("boatLength");
+    Integer boatId = (Integer) request.getAttribute("boatId");
+    Integer slipTypeId = (Integer) request.getAttribute("slipTypeId");
+    boolean showWaitlist = Boolean.TRUE.equals(request.getAttribute("showWaitlist"));
 %>
 
 <!DOCTYPE html>
@@ -151,6 +154,27 @@
     </div>
 
 </main>
+
+<% if (showWaitlist) { %>
+<div id="waitlistModal" class="modal">
+    <div class="modal-content">
+        <h2>No Available Slips</h2>
+        <p>
+            We're sorry! There are no slips available which could accommodate your <strong><%= boatLength %>
+            ft</strong> boat.
+        </p>
+        <p>Would you like to be added to our waitlist?</p>
+        <div class="modal-actions">
+            <form action="${pageContext.request.contextPath}/waitlist" method="POST">
+                <input type="hidden" name="boatId" value="<%= boatId %>">
+                <input type="hidden" name="slipTypeId" value="<%= slipTypeId %>">
+                <button type="submit" class="btn btn-submit">Join Waitlist</button>
+                <a href="${pageContext.request.contextPath}/reserve" class="btn btn-edit">No thanks</a>
+            </form>
+        </div>
+    </div>
+</div>
+<% } %>
 
 <script>
     document.getElementById("checkInDate").addEventListener("change", function () {
