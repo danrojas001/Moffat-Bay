@@ -154,7 +154,7 @@ public class ReservationServlet extends HttpServlet {
                         request.setAttribute("errorField", "availability");
                         request.setAttribute("errorMessage", "There are no slips available for your boat's size and " +
                                 "your chosen dates.");
-                        request.setAttribute("ShowWaitList", true);
+                        request.setAttribute("showWaitlist", true);
                         request.setAttribute("boatId", boatId);
                         request.setAttribute("boatName", boatName);
                         request.setAttribute("boatLength", boatLength);

@@ -71,8 +71,7 @@ public class WaitlistServlet extends HttpServlet {
             LOGGER.severe("Database error while adding customer to waitlist: " + e.getMessage());
             request.setAttribute("errorField", "waitlist");
             request.setAttribute("errorMessage", "Unable to add you to the waitlist at this time. Please try again later.");
+            request.getRequestDispatcher("reserve.jsp").forward(request, response);
         }
-
-        request.getRequestDispatcher("reserve.jsp").forward(request, response);
     }
 }
