@@ -2,6 +2,9 @@
 
 <%
     boolean loggedIn = session != null && session.getAttribute("customerId") != null;
+    Integer smallWaitlistCount = (Integer) request.getAttribute("smallWaitlistCount");
+    Integer mediumWaitlistCount = (Integer) request.getAttribute("mediumWaitlistCount");
+    Integer largeWaitlistCount = (Integer) request.getAttribute("largeWaitlistCount");
 %>
 
 <!DOCTYPE html>
@@ -11,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moffat Bay Marina - Waitlist Look Up</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="css/reservation_lookup.css">
 </head>
 
 <body>
@@ -47,5 +50,42 @@
         </div>
     </div>
 </header>
+
+<main class="large-container">
+    <div class="card">
+        <div class="card-header">
+            <h1>Waitlist Queue</h1>
+            <p>View the amount of customers currently in queue for each slip type.</p>
+        </div>
+        <div class="content">
+            <div class="table-container">
+                <table class="reservation-table">
+                    <thead>
+                    <tr>
+                        <th>Slip Size Category</th>
+                        <th>Customers Waiting</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Small slip: Max 26ft</td>
+                        <td><%= smallWaitlistCount != null ? smallWaitlistCount : 0 %></td>
+                    </tr>
+                    <tr>
+                        <td>Medium Slip: Max 40ft</td>
+                        <td><%= mediumWaitlistCount != null ? mediumWaitlistCount : 0 %></td>
+                    </tr>
+                    <tr>
+                        <td>Large Slip: Max 50ft</td>
+                        <td><%= largeWaitlistCount != null ? largeWaitlistCount : 0 %></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</main>
+
 </body>
 </html>
