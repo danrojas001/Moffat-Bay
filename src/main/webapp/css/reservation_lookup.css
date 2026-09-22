@@ -67,3 +67,9 @@
     margin: 0 auto;
     line-height: 1.5;
 }
+
+/* Center the second column (Customers Waiting) while keeping the first left-aligned */
+.reservation-table th:nth-child(2),
+.reservation-table td:nth-child(2) {
+    text-align: center;
+}
