@@ -34,7 +34,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="reserve">Slip Reservation</a></li>
                     <li><a href="reservation_lookup">Reservation Look Up</a></li>
-                    <li><a href="waitlist_lookup.jsp">Wait List Look Up</a></li>
+                    <li><a href="waitlist_lookup">Wait List Look Up</a></li>
                 </ul>
             </li>
         </ul>
