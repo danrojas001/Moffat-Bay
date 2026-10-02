@@ -64,7 +64,7 @@ public class WaitlistServlet extends HttpServlet {
                 ps.setInt(2, boatId);
                 ps.setInt(3, slipTypeId);
                 ps.executeUpdate();
-                response.sendRedirect("waitlist_lookup.jsp");
+                response.sendRedirect("waitlist_lookup");
             }
 
         } catch (SQLException e) {

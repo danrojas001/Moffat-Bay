@@ -182,7 +182,7 @@
         if (this.value) {
             let checkInDate = new Date(this.value);
 
-            checkInDate.setMonth(checkInDate.getMonth() + 1);
+            checkInDate.setDate(checkInDate.getDate() + 30);
 
             let day = String(checkInDate.getDate()).padStart(2, "0");
 

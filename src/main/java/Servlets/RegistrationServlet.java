@@ -91,15 +91,15 @@ public class RegistrationServlet extends HttpServlet {
                 response.sendRedirect("login.jsp");
             } catch (SQLException e) {
                 conn.rollback();
+                LOGGER.log(Level.WARNING, "Registration failed: " + e.getMessage(), e);
+                if (e.getErrorCode() == 1062) { // 1062 is a MySQL error code meaning duplicate entry for a UNIQUE constraint
+                    request.setAttribute("errorField", "email");
+                    request.setAttribute("errorMessage", "Email address already in use");
+                    request.getRequestDispatcher("register.jsp").forward(request, response);
+                }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage(), e);
-            if (e.getErrorCode() == 1062) { // 1062 is a MySQL error code meaning duplicate entry for a UNIQUE constraint
-                request.setAttribute("errorField", "email");
-                request.setAttribute("errorMessage", "Email address already in use");
-                request.getRequestDispatcher("register.jsp").forward(request, response);
-                return;
-            }
+            LOGGER.log(Level.SEVERE, "Database connection error: " + e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Registration Failed");
         }
     }

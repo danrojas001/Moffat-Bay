@@ -91,7 +91,7 @@ public class ReservationServlet extends HttpServlet {
         }
 
         LocalDate checkInDate = LocalDate.parse(checkInDateString);
-        LocalDate checkOutDate = checkInDate.plusMonths(1);
+        LocalDate checkOutDate = checkInDate.plusDays(29);
 
         DBConnection db = new DBConnection();
 
