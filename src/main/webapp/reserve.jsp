@@ -127,7 +127,7 @@
                                 type="text"
                                 id="checkOutDate"
                                 readonly/>
-                        <span class="field-hint">Reservations are one month in length.</span>
+                        <span class="field-hint">Reservations are 30 days in length.</span>
                     </div>
 
                     <div class="group checkbox-group">

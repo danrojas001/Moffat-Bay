@@ -138,7 +138,7 @@ public class RegistrationServlet extends HttpServlet {
         }
 
         // Validate phone number
-        if (telephone == null || !telephone.matches("\\d{10}")) {
+        if (telephone == null || !telephone.matches("[0-9]{3}-[0-9]{3}-[0-9]{4}")) {
             return new ValidationError("telephone", "A valid 10-digit telephone number is required");
         }
 

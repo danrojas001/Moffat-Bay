@@ -142,6 +142,7 @@
                                 type="tel"
                                 id="telephone"
                                 name="telephone"
+                                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                 placeholder="777-123-4567"
                                 required/>
                         <%
